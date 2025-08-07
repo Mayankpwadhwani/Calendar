@@ -1,0 +1,33 @@
+.color{
+    background-color: rgb(19, 67, 105);
+     border-bottom: 1px solid #ccc;
+}
+.text{
+    color: white;
+}
+.select{
+    width: 100px;
+    margin-left: 50px;
+    color: white;
+}
+.day{
+    color: white;
+}
+.white{
+    color: white;
+}
+.options{
+    color: white;
+}
+/* ::ng-deep mwl-calendar-month-view .cal-month-view{
+    background-color: rgb(19, 67, 105);
+    
+}
+::ng-deep mwl-calendar-month-view .cal-cell{
+    color: white;
+    font-size: medium;
+}
+ ::ng-deep mwl-calendar-month-view .cal-cell-top{
+    color: rgb(255, 255, 255);
+    font-weight:bold;
+ } */
