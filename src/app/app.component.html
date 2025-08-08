@@ -4,19 +4,18 @@
 <div  style="margin: 20px;">
 <div style="display: flex; justify-content: space-between; align-items: center;">
 <div class="day" style="display: flex; align-items: center;">
-  <button mat-button (click)="opendialog()">click</button>
-
-  <mat-select class="select" [(value)]="view" >
-  <mat-option value="month">Month</mat-option>
-  <mat-option value="week">week</mat-option>
-  <mat-option value="day">Day</mat-option>
-</mat-select>
+  
+ 
 <button mat-button (click)="viewDate = subPeriod()"> < </button>
-{{viewDate | date:'fullDate'}}
+{{weekRange()}}
 <button mat-button (click)="viewDate = addPeriod()">  > </button>
+
+<mat-radio-group  [(ngModel)]="view">
+  <mat-radio-button value="month">Month</mat-radio-button>
+  <mat-radio-button value="week">Week</mat-radio-button>
+  <mat-radio-button >List</mat-radio-button>
+</mat-radio-group>
 </div>
-
-
 </div>
 </div>
 </mat-toolbar>
@@ -25,9 +24,9 @@
      *ngSwitchCase="'month'"
      [viewDate]="viewDate"
      [events]="events"
+     (dayClicked)="onDate($event.day)"
+     [cellTemplate]="select">
      
-     >
-  
 </mwl-calendar-month-view>
 <mwl-calendar-week-view
      *ngSwitchCase="'week'"
@@ -40,4 +39,14 @@
      [events]="events">
 </mwl-calendar-day-view>
 </ng-container>
+
+<ng-template #select let-day="day">
+<div class="day-number" [ngClass]="{'disabled':(day.date < (todayDate))}"
+(click)="day.date >= todayDate && onDate(day)"
+>{{ day.date | date: 'd' }}</div>
+<div class="event-titles" *ngFor="let event of day.events">
+        {{ event.title }}
+</div>
+</ng-template>
+
 

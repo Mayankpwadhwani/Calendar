@@ -8,9 +8,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
-import { NgModule, LOCALE_ID } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
-import localeEnGb from '@angular/common/locales/en-GB';
+import { NgModule } from '@angular/core';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -18,10 +16,7 @@ import { EventComponent } from './event/event.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-
-registerLocaleData(localeEnGb);
-
-
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
  declarations: [AppComponent, EventComponent],
@@ -30,11 +25,11 @@ registerLocaleData(localeEnGb);
    BrowserAnimationsModule,
    MatToolbarModule,
    MatButtonModule,MatInputModule,MatFormFieldModule,
-   MatSelectModule,MatDatepickerModule,
+   MatSelectModule,MatDatepickerModule,MatRadioModule,
    MatIconModule,MatDialogModule,MatNativeDateModule,FormsModule,
    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
  ],
- providers: [ { provide: LOCALE_ID, useValue: 'en-GB' },],
+ providers: [],
  bootstrap: [AppComponent],
 })
 export class AppModule {}
