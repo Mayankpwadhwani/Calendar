@@ -5,7 +5,6 @@
 <div style="display: flex; justify-content: space-between; align-items: center;">
 <div class="day" style="display: flex; align-items: center;">
   
- 
 <button mat-button (click)="viewDate = subPeriod()"> < </button>
 {{weekRange()}}
 <button mat-button (click)="viewDate = addPeriod()">  > </button>
@@ -13,8 +12,9 @@
 <mat-radio-group  [(ngModel)]="view">
   <mat-radio-button value="month">Month</mat-radio-button>
   <mat-radio-button value="week">Week</mat-radio-button>
-  <mat-radio-button >List</mat-radio-button>
+   <mat-radio-button (click)="ShowEvents()">List</mat-radio-button>
 </mat-radio-group>
+
 </div>
 </div>
 </div>
@@ -41,12 +41,34 @@
 </ng-container>
 
 <ng-template #select let-day="day">
-<div class="day-number" [ngClass]="{'disabled':(day.date < (todayDate))}"
-(click)="day.date >= todayDate && onDate(day)"
+<div class="day-number"
 >{{ day.date | date: 'd' }}</div>
 <div class="event-titles" *ngFor="let event of day.events">
         {{ event.title }}
 </div>
 </ng-template>
 
-
+<div *ngIf="MonthEvents.length">
+     <h3>Booked Events</h3>
+     <table class="table" border="1">
+          <thead>   
+               <tr>
+                    <th>Start Date</th>
+                    <th>Title</th>
+                    <th>Location</th>
+                    <th>Description</th>
+                    <th>Guest</th>
+               </tr>
+          </thead>
+          <tbody>
+               <tr *ngFor="let e of MonthEvents">
+                    <td>{{e.start | date:'fullDate'}}</td>
+                    <td>{{e.title}}</td>
+                    <td>{{e.location}}</td>
+                    <td>{{e.description}}</td>
+                    <td>{{e.guest}}</td>
+               </tr>
+          </tbody>
+     </table>
+</div>
+<div *ngIf="!MonthEvents.length">No Events</div>

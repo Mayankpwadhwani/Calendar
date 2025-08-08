@@ -30,6 +30,7 @@ export class EventComponent {
   /* save is used in dailog box to save the event
    */
 save() {
+
     this.dialogRef.close({ title: this.title, start: this.start, end: this.end, guest:this.guest,location:this.location,description:this.description });
     console.log(this.guest)
   }

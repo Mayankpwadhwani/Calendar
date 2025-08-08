@@ -29,9 +29,9 @@ export class AppComponent {
   }
   events: MyCalendarEvent[] = [];
   title = 'Calendar';
-  todayDate=new Date();
   view: CalendarView = CalendarView.Month;
   viewDate: Date = new Date();
+  MonthEvents: any[]=[];
   
   
   /*this function is used to open the dailog box and and pass the data 
@@ -39,6 +39,8 @@ export class AppComponent {
     on that specific day 
    */
   onDate(day :any){
+    if(day.date.getDate() < new Date().getDate())
+      return;
    const dialogRef = this.dialog.open(EventComponent, {
      data: { date: day.date }
    });
@@ -52,6 +54,7 @@ export class AppComponent {
            start: new Date(result.start),
            end: new Date(result.end),
            location: result.location,
+           description:result.description
 
          }
        ];
@@ -98,4 +101,10 @@ addPeriod(): Date {
     default :return this.viewDate
   }
  }
+/*
+show event is used to show the events on list table
+ */
+ShowEvents(){
+  this.MonthEvents =this.events
+}
 }
