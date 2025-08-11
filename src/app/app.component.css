@@ -1,6 +1,7 @@
 .color{
     background-color: rgb(19, 67, 105);
      border-bottom: 1px solid #ccc;
+     font-family: fangsong;
 }
 .text{
     color: white;
@@ -9,6 +10,7 @@
     width: 100px;
     margin-left: 50px;
     color: rgb(249, 248, 248);
+    font-family: fangsong;
 }
 .day{
     color: white;
@@ -41,4 +43,32 @@
 .table{
     height: 100%;
     width: 100%;
+}
+.button1{
+    font-size: larger;
+}
+.button2{
+    font-size: larger;
+}
+::ng-deep .event-titles{
+    color: white;
+    background-color:  rgb(19, 67, 105);
+    font-family: fangsong;
+}
+::ng-deep .cal-month-view .cal-day-cell.cal-today{
+    background-color: rgb(19, 67, 105);
+    color: white;
+    font-family: fangsong;
+}
+::ng-deep .mdc-form-field>label{
+    font-family: fangsong;
+}
+::ng-deep .cal-month-view .cal-header .cal-cell{
+    font-family: fangsong;
+}
+::ng-deep .day-number{
+     font-family: fangsong;
+}
+.toggle{
+    margin-left: 600px;
 }

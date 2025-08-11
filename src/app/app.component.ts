@@ -5,7 +5,7 @@ import {
   CalendarEvent,
  CalendarView,
 } from 'angular-calendar';
-import { addDays, addWeeks,addMonths, subDays, subWeeks,subMonths,startOfWeek,endOfWeek,format } from 'date-fns';
+import {startOfDay,endOfDay, addDays, addWeeks,addMonths, subDays, subWeeks,subMonths,startOfWeek,endOfWeek,format } from 'date-fns';
 
 
 
@@ -16,6 +16,10 @@ interface MyCalendarEvent extends CalendarEvent {
   end:Date,
   location?: string;
   description?: string; 
+  color: {
+        primary: string;
+        secondary: string;
+      };
   
 }
 @Component({
@@ -25,14 +29,41 @@ interface MyCalendarEvent extends CalendarEvent {
 })
 export class AppComponent {
   constructor(private dialog: MatDialog){
-
   }
-  events: MyCalendarEvent[] = [];
+  events: MyCalendarEvent[] = [{
+      guest:150,
+      title:'Birthday Party',
+      start: new Date(2025,7,18),
+      end:addDays(endOfDay(new Date(2025,7,18)),0),
+      location:'Mumbai',
+      description:'A big party with sport theme',
+       color: {
+          primary: '#ad2121', // Primary color (e.g., event background)
+          secondary: '#000000ff' // Secondary color (e.g., event text)
+        }
+      
+
+  },
+{
+      guest:200,
+      title:'Marriage Reception',
+      start: new Date(2025,7,15),
+      end:addDays(endOfDay(new Date(2025,7,15)),0),
+      location:'Mumbai',
+      description:'Reception with Royal theme',
+       color: {
+          primary: '#ad2121', // Primary color (e.g., event background)
+          secondary: '#ff0000ff' // Secondary color (e.g., event text)
+        }
+      
+  }] ;
+  displayedColumns: string[] = ['start Date', 'Title', 'location', 'description','Guest'];
+  
   title = 'Calendar';
   view: CalendarView = CalendarView.Month;
   viewDate: Date = new Date();
   MonthEvents: any[]=[];
-  
+  list:boolean=false
   
   /*this function is used to open the dailog box and and pass the data 
     and after that on close subscribing to the result to save the event 
@@ -54,7 +85,8 @@ export class AppComponent {
            start: new Date(result.start),
            end: new Date(result.end),
            location: result.location,
-           description:result.description
+           description:result.description,
+           color:result.color
 
          }
        ];
@@ -106,5 +138,6 @@ show event is used to show the events on list table
  */
 ShowEvents(){
   this.MonthEvents =this.events
+  this.list=true
 }
 }

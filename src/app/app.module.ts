@@ -17,13 +17,14 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
  declarations: [AppComponent, EventComponent],
  imports: [
    BrowserModule,
    BrowserAnimationsModule,
-   MatToolbarModule,
+   MatToolbarModule,MatTableModule,
    MatButtonModule,MatInputModule,MatFormFieldModule,
    MatSelectModule,MatDatepickerModule,MatRadioModule,
    MatIconModule,MatDialogModule,MatNativeDateModule,FormsModule,
