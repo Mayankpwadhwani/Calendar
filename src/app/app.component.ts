@@ -52,18 +52,18 @@ export class AppComponent {
       location:'Mumbai',
       description:'Reception with Royal theme',
        color: {
-          primary: '#ad2121', // Primary color (e.g., event background)
-          secondary: '#ff0000ff' // Secondary color (e.g., event text)
+          primary: '#ad2121',
+          secondary: '#ffffffff' 
         }
       
   }] ;
-  displayedColumns: string[] = ['start Date', 'Title', 'location', 'description','Guest'];
+  displayedColumns: string[] = ['start Date', 'Title', 'location', 'description','Guest','actions'];
   
   title = 'Calendar';
   view: CalendarView = CalendarView.Month;
   viewDate: Date = new Date();
   MonthEvents: any[]=[];
-  list:boolean=false
+  
   
   /*this function is used to open the dailog box and and pass the data 
     and after that on close subscribing to the result to save the event 
@@ -138,6 +138,34 @@ show event is used to show the events on list table
  */
 ShowEvents(){
   this.MonthEvents =this.events
-  this.list=true
 }
+/*edit function enables a user to edit an event based on new requirements
+ */
+editEvent(event: MyCalendarEvent) {
+ const dialogRef = this.dialog.open(EventComponent, {
+   data:{...event} 
+ });
+ dialogRef.afterClosed().subscribe(result => {
+   if (result) {
+     const index = this.events.indexOf(event);
+     if (index > -1) {
+       this.events=[
+        ...this.events.slice(0,index),
+        result,
+        ...this.events.slice(index + 1)
+       ];
+       this.ShowEvents(); 
+     }
+   }
+ });
+}
+/* to delete the event from the list
+ */
+deleteEvent(event: MyCalendarEvent) {
+ if (confirm(`delete "${event.title}"?`)) {
+   this.events = this.events.filter(e => e !== event);
+   this.ShowEvents(); 
+ }
+}
+
 }
