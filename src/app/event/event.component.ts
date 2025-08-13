@@ -1,5 +1,4 @@
 import { Component, Inject } from '@angular/core';
-
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -8,7 +7,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
    styleUrls: ['./event.component.css']
   
 })
-
 export class EventComponent {
   title: string = '';
   guest:number=0;
@@ -48,7 +46,6 @@ save() {
  };
  this.dialogRef.close(updatedEvent); 
 }
-
   /*similary as save close os used to close the dailog box
    */
   close() {

@@ -1,26 +1,17 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EventComponent } from './event/event.component';
-import {
-  CalendarEvent,
- CalendarView,
-} from 'angular-calendar';
-import {startOfDay,endOfDay, addDays, addWeeks,addMonths, subDays, subWeeks,subMonths,startOfWeek,endOfWeek,format } from 'date-fns';
-
-
-
+import {CalendarEvent,CalendarView,} from 'angular-calendar';
+import {endOfDay, addDays, addWeeks,addMonths, subDays, subWeeks,subMonths,startOfWeek,endOfWeek,format } from 'date-fns';
+import { filter } from 'rxjs';
 interface MyCalendarEvent extends CalendarEvent {
   guest:number,
   title:string,
   start:Date,
   end:Date,
-  location?: string;
-  description?: string; 
-  color: {
-        primary: string;
-        secondary: string;
-      };
-  
+  location: string;
+  description: string; 
+  color: {primary: string;secondary: string;};
 }
 @Component({
   selector: 'app-root',
@@ -30,6 +21,7 @@ interface MyCalendarEvent extends CalendarEvent {
 export class AppComponent {
   constructor(private dialog: MatDialog){
   }
+  searchTerm:string='';
   events: MyCalendarEvent[] = [{
       guest:150,
       title:'Birthday Party',
@@ -37,12 +29,7 @@ export class AppComponent {
       end:addDays(endOfDay(new Date(2025,7,18)),0),
       location:'Mumbai',
       description:'A big party with sport theme',
-       color: {
-          primary: '#ad2121', // Primary color (e.g., event background)
-          secondary: '#000000ff' // Secondary color (e.g., event text)
-        }
-      
-
+       color: {primary: '#ad2121', secondary: '#000000ff'}
   },
 {
       guest:200,
@@ -51,20 +38,14 @@ export class AppComponent {
       end:addDays(endOfDay(new Date(2025,7,15)),0),
       location:'Mumbai',
       description:'Reception with Royal theme',
-       color: {
-          primary: '#ad2121',
-          secondary: '#ffffffff' 
-        }
-      
+       color: {primary: '#ad2121',secondary: '#ffffffff'}
   }] ;
+  filteredEvents:MyCalendarEvent[]=[];
   displayedColumns: string[] = ['start Date', 'Title', 'location', 'description','Guest','actions'];
-  
   title = 'Calendar';
   view: CalendarView = CalendarView.Month;
   viewDate: Date = new Date();
   MonthEvents: any[]=[];
-  
-  
   /*this function is used to open the dailog box and and pass the data 
     and after that on close subscribing to the result to save the event 
     on that specific day 
@@ -87,13 +68,10 @@ export class AppComponent {
            location: result.location,
            description:result.description,
            color:result.color
-
          }
        ];
      }
    });}
-  
-
   /* this function is used to display the date accoring to the view 
      if the view is month then it will display the month and if it 
      switches to week it will show the range by using property of library.
@@ -167,5 +145,19 @@ deleteEvent(event: MyCalendarEvent) {
    this.ShowEvents(); 
  }
 }
-
+/*
+this search function is used for searching events based on requirements 
+*/ 
+onSearch(){
+ const term =this.searchTerm.trim().toLowerCase();
+ if(!term){
+  this.filteredEvents=this.events;
+  return;
+ }
+ this.filteredEvents=this.events.filter(event=>event.title.toLowerCase().includes(term) || 
+    (event.location && event.location.toLowerCase().includes(term)) ||
+    (event.description && event.description.toLowerCase().includes(term))
+  );
 }
+}
+
